@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رسالة حب لقلبي</title>
+    <style>
+        :root {
+            --bg-color: #ffeef2;
+            --envelope-color: #ff6b8b;
+            --envelope-dark: #e04d70;
+            --paper-color: #fffaf0;
+            --text-color: #4a1525;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* حاوية الظرف الأساسية */
+        .scene {
+            width: 380px;
+            height: 480px;
+            perspective: 1000px;
+        }
+
+        /* الكرت اللي هيتقلب */
+        .envelope-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* لما نضيف كلاس الفليب */
+        .envelope-container.flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* الواجهة والخلفية */
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- الواجهة (الظرف المقفول) --- */
+        .front {
+            background-color: var(--envelope-color);
+            border: 2px solid var(--envelope-dark);
+        }
+
+        /* شكل قفلة الظرف الوهمية */
+        .front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 190px solid transparent;
+            border-right: 190px solid transparent;
+            border-top: 180px solid var(--envelope-dark);
+            z-index: 2;
+        }
+
+        .front-content {
+            margin-top: 150px;
+            z-index: 3;
+            text-align: center;
+        }
+
+        .heart-btn {
+            background: #fff;
+            border: none;
+            color: var(--envelope-color);
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s standard, background 0.3s;
+            animation: pulse 1.5s infinite;
+        }
+
+        .heart-btn:hover {
+            background: var(--paper-color);
+            transform: scale(1.05);
+        }
+
+        /* --- الخلفية (الرسالة والقصيدة) --- */
+        .back {
+            background-color: var(--paper-color);
+            transform: rotateY(180deg);
+            padding: 30px;
+            box-sizing: border-box;
+            border: 8px double var(--envelope-color);
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .poem {
+            text-align: center;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            font-weight: 600;
+            margin-top: 10px;
+            border-bottom: 2px dashed #ffb3c1;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+
+        .personal-message {
+            text-align: center;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #d63031;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 0 10px;
+        }
+
+        .sparkles {
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        /* أنيميشن نبض الزرار */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scene">
+        <div class="envelope-container" id="envelope">
+            
+            <!-- واجهة الظرف (قبل الضغط) -->
+            <div class="front">
+                <div class="front-content">
+                    <div style="font-size: 3.5rem; margin-bottom: 15px;">💌</div>
+                    <button class="heart-btn" onclick="flipEnvelope()">إلى حبيبتي (اضغطي هنا) ❤️</button>
+                </div>
+            </div>
+
+            <!-- خلفية الظرف (الرسالة والقصيدة بعد الضغط) -->
+            <div class="back">
+                <div class="sparkles">✨💖✨</div>
+                
+                <!-- الأبيات -->
+                <div class="poem">
+                    بحبك قدر شعرك وكيرلاتو <br>
+                    بحبك قدر البحر وسمكاتو <br>
+                    بحبك قدر الشجر وصفقاتو <br>
+                    بحبك قدر القمر ونجماتـو <br>
+                    بحبك قدر الورد وريحـاتـو <br>
+                    بحبك قدر المطر وقطراتو
+                </div>
+
+                <!-- الرسالة الخاصة -->
+                <div class="personal-message">
+                    بحبك شديد يا حبيبتي كل سنة و انت طيبة ربنا يخليك لي و يحقق ليك امانيك و ان شاءلله السنة الجاية معيدين مع بعض يا سارة قلبي 💑
+                </div>
+                
+                <div style="font-size: 1.5rem; margin-top: auto;">🌹</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function flipEnvelope() {
+            const envelope = document.getElementById('envelope');
+            envelope.classList.add('flipped');
+        }
+    </script>
+
+</body>
+</html>
